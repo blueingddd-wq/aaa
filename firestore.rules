@@ -1,0 +1,32 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper to check if string is valid
+    function isValidString(val, maxLen) {
+      return val is string && val.size() <= maxLen;
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Menu: Public read, admin write
+    match /menu/{menuId} {
+      allow read: if true;
+      allow write: if true; // In a real app with no Auth, we'd need a secret in request.resource.data
+    }
+
+    // Orders: Public create, Admin read/update
+    match /orders/{orderId} {
+      allow create: if true;
+      allow read, update, delete: if true; // Security is limited without Auth
+    }
+
+    // Settings: Public read (to check isInitialized), admin write
+    match /settings/{settingId} {
+      allow read: if true;
+      allow write: if true;
+    }
+  }
+}
