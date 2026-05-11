@@ -1,0 +1,6 @@
+{
+  "name": "TeaOrder - 專業茶飲點單系統",
+  "description": "包含前台點單與後台管理的專業茶飲系統，支援 Firebase 即時資料同步與管理者密碼保護。",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
