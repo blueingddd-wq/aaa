@@ -1,0 +1,69 @@
+{
+  "entities": {
+    "MenuItem": {
+      "title": "Menu Item",
+      "description": "A drink in the menu",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "priceM": { "type": "number" },
+        "priceL": { "type": "number" },
+        "description": { "type": "string" },
+        "isAvailable": { "type": "boolean" }
+      },
+      "required": ["name", "category", "priceM"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "A customer order",
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "menuItemId": { "type": "string" },
+              "name": { "type": "string" },
+              "size": { "type": "string", "enum": ["M", "L"] },
+              "ice": { "type": "string" },
+              "sugar": { "type": "string" },
+              "price": { "type": "number" },
+              "quantity": { "type": "number" }
+            }
+          }
+        },
+        "customerName": { "type": "string" },
+        "total": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "preparing", "completed", "cancelled"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["items", "total", "status", "createdAt"]
+    },
+    "AdminSettings": {
+      "title": "Admin Settings",
+      "description": "Global application settings",
+      "type": "object",
+      "properties": {
+        "adminPasswordHash": { "type": "string" },
+        "isInitialized": { "type": "boolean" }
+      },
+      "required": ["isInitialized"]
+    }
+  },
+  "firestore": {
+    "menu": {
+      "schema": "MenuItem",
+      "description": "Collection of drinks"
+    },
+    "orders": {
+      "schema": "Order",
+      "description": "Collection of customer orders"
+    },
+    "settings": {
+      "schema": "AdminSettings",
+      "description": "Single document for settings"
+    }
+  }
+}
